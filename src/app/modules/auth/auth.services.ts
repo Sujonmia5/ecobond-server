@@ -1,5 +1,5 @@
 import { createToken } from "../../utils/jwtFunction";
-import { matchPassword } from "../../utils/utilsFunction";
+import { bcryptPassword, matchPassword } from "../../utils/utilsFunction";
 import { MUser } from "../user/user.model";
 
 const signInUserIntoDB = async (data: Record<string, string>) => {
@@ -33,11 +33,24 @@ const resetPasswordIntoDB = async (data: {
   email: string;
   newPassword: string;
 }) => {
+  const hasPassword = await bcryptPassword(data.newPassword);
   const user = await MUser.isUserExistByEmail(data.email);
-  if (!user && user.isDeleted) {
+  if (!user || user?.isDeleted) {
     throw new Error("user does not exist");
   }
-  const result = await MUser.updateOne({});
+
+  const result = await MUser.updateOne(
+    {
+      _id: user._id,
+    },
+    {
+      password: hasPassword,
+    },
+    {
+      new: true,
+    }
+  );
+  return result;
 };
 
 export const authService = {

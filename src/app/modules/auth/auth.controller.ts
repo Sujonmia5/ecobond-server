@@ -1,3 +1,4 @@
+import status from "http-status";
 import { config } from "../../config";
 import catchAsync from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
@@ -19,6 +20,7 @@ const signInUser = catchAsync(async (req, res) => {
     data: user,
   });
 });
+
 const resetPassword = catchAsync(async (req, res) => {
   const user = req.user;
   const data = {
@@ -29,7 +31,7 @@ const resetPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     message: "Password reset successfully",
-    statusCode: 200,
+    statusCode: status.OK,
     data: null,
   });
 });

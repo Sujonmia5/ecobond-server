@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { TUser, TUserModel, TUserName } from "./user.interface";
 import bcrypt from "bcrypt";
+import { config } from "../../config";
 
 const UserNameSchema = new Schema<TUserName>(
   {
@@ -79,7 +80,15 @@ const UserSchema = new Schema<TUser, TUserModel>(
 );
 
 UserSchema.pre("save", async function (next) {
-  this.password = await bcrypt.hash(this.password, 10);
+  this.password = await bcrypt.hash(
+    this.password,
+    parseInt(config.bcrypt_salt as string)
+  );
+  next();
+});
+
+UserSchema.pre("find", async function (next) {
+  this.find({ isDelete: { $ne: true } });
   next();
 });
 

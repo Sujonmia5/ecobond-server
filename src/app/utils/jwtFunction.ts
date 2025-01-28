@@ -13,7 +13,7 @@ export const createToken = (user: TUser): string => {
     tokenData,
     config.jwt_secret as jwt.Secret,
     {
-      expiresIn: "120ms",
+      expiresIn: config.jwt_expires,
     } as jwt.SignOptions
   );
 

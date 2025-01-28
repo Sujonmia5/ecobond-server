@@ -15,7 +15,4 @@ export const UpdatePasswordSchema = z.object({
         "Password must be at least 8 characters long, include one letter, one number, and one special character (@, #, $, %, ^, &, *, or !)",
     })
     .nonempty({ message: "Password is required" }),
-  contact: z.string().regex(/^\+?\d{10,15}$/, {
-    message: "Contact must be a valid phone number (10-15 digits)",
-  }),
 });
