@@ -6,7 +6,7 @@ const app = express();
 
 // middleware parsers
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "http://localhost:3000" }));
 
 // define root routes example
 app.get("/", (req, res) => {

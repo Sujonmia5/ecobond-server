@@ -1,14 +1,8 @@
 import { Model } from "mongoose";
 
-export type TUserName = {
-  firstName: string;
-  middleName?: string; // Optional middle name
-  lastName: string;
-};
-
 export type TUser = {
   _id: string;
-  name: TUserName;
+  name: string;
   email: string;
   password: string;
   contact: string;

@@ -5,7 +5,7 @@ import { userService } from "./user.services";
 const createUser = catchAsync(async (req, res) => {
   const userData = req.body;
   const { user, token } = await userService.createUserToDB(userData);
-
+  res.cookie("token", token);
   sendResponse(res, {
     success: true,
     data: user,

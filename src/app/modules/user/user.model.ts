@@ -1,24 +1,12 @@
 import mongoose, { Schema } from "mongoose";
-import { TUser, TUserModel, TUserName } from "./user.interface";
+import { TUser, TUserModel } from "./user.interface";
 import bcrypt from "bcrypt";
 import { config } from "../../config";
-
-const UserNameSchema = new Schema<TUserName>(
-  {
-    firstName: { type: String, required: true },
-    middleName: { type: String, required: false },
-    lastName: { type: String, required: true },
-  },
-  {
-    _id: false,
-    versionKey: false,
-  }
-);
 
 const UserSchema = new Schema<TUser, TUserModel>(
   {
     name: {
-      type: UserNameSchema,
+      type: String,
       required: true,
     },
     email: {
@@ -42,7 +30,6 @@ const UserSchema = new Schema<TUser, TUserModel>(
     },
     profileImage: {
       type: String,
-      required: true,
     },
     status: {
       type: String,

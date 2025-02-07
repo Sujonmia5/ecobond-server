@@ -1,16 +1,9 @@
 import { z } from "zod";
 
-// Name Schema
-export const UserNameSchema = z.object({
-  firstName: z.string().nonempty({ message: "First name is required" }),
-  middleName: z.string().optional().or(z.literal("")),
-  lastName: z.string().nonempty({ message: "Last name is required" }),
-});
-
 // User Schema
 export const UserSchema = z
   .object({
-    name: UserNameSchema,
+    name: z.string().nonempty({ message: " Name is required" }),
     email: z
       .string()
       .email({ message: "Invalid email address" })
@@ -25,8 +18,8 @@ export const UserSchema = z
     contact: z.string().regex(/^\+?\d{10,15}$/, {
       message: "Contact must be a valid phone number (10-15 digits)",
     }),
-    profileImage: z.string().nonempty({ message: "Profile image is required" }),
-    followersId: z.array(z.string()).default([]),
+    // profileImage: z.string().nonempty({ message: "Profile image is required" }),
+    // followersId: z.array(z.string()).default([]),
   })
   .strict();
 export default { UserSchema };
