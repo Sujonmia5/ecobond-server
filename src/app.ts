@@ -6,7 +6,7 @@ const app = express();
 
 // middleware parsers
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "https://ecobond-clinet.vercel.app" }));
 
 // define root routes example
 app.get("/", (req, res) => {
